@@ -1,5 +1,6 @@
 import express, {Express} from "express"
 import userRouter from "./routes/user"
+import notesRouter from "./routes/notes"
 import bodyParser from "body-parser"
 import {protectedRoute} from "./middleware/auth"
 
@@ -13,5 +14,6 @@ app.get("/",protectedRoute, (req, res) => {
 })
 
 app.use("/", userRouter)
+app.use("/notes/", protectedRoute, notesRouter)
 
 export default app
