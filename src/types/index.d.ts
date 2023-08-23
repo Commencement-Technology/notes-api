@@ -1,14 +1,14 @@
-import {Types} from "mongoose"
+import {Types, Document} from "mongoose"
 
 
-export interface UserTypes {
+export interface UserTypes extends Document {
   firstName: String,
   lastName: String,
   email: String,
   password: String
 }
 
-export interface Notes {
+export interface NotesTypes extends Document{
   user: Types.ObjectId,
   title: String,
   body: String
