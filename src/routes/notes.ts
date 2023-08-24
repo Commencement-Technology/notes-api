@@ -1,12 +1,18 @@
-import {Router } from "express"
-import {createOneNote, getAllNotes,deleteOneNote, getOneNote, updateOneNote} from "../controllers/notes"
+import { Router } from "express";
+import {
+  createOneNote,
+  getAllNotes,
+  deleteOneNote,
+  getOneNote,
+  updateOneNote,
+} from "../controllers/notes";
 
-const notesRouter = Router()
+const notesRouter = Router();
 
-notesRouter.get("/", getAllNotes)
-notesRouter.post("/", createOneNote)
-notesRouter.get("/:id", getOneNote)
-notesRouter.put("/:id", updateOneNote)
-notesRouter.delete("/:id", deleteOneNote)
+notesRouter.get("/", getAllNotes);
+notesRouter.post("/", createOneNote);
+notesRouter.get("/:id", getOneNote);
+notesRouter.put("/:id", updateOneNote);
+notesRouter.delete("/:id", deleteOneNote);
 
-export default notesRouter
+export default notesRouter;
