@@ -1,16 +1,16 @@
 import { Types, Document } from "mongoose";
 
 export interface UserTypes extends Document {
-  firstName: String;
-  lastName: String;
-  email: String;
-  password: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 }
 
 export interface NotesTypes extends Document {
   user: Types.ObjectId;
-  title: String;
-  body: String;
+  title: string;
+  body: string;
 }
 
 declare global {
