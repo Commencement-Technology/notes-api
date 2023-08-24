@@ -2,8 +2,17 @@ import { Request, Response } from "express";
 import asyncHandler from "../middleware/asyncHandler";
 import { createJWT, hashPassword } from "../middleware/auth";
 import User from "../models/user";
+import { validationResult } from "express-validator";
 
 export const SignUp = asyncHandler(async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400);
+    res.json({ success: false, errors: errors.array() });
+    return;
+  }
+
   const userExists = await User.findOne({ email: req.body.email });
   if (userExists) {
     res.status(400);
@@ -31,5 +40,5 @@ export const LogIn = asyncHandler(async (req: Request, res: Response) => {
   }
   const token = createJWT(user);
   res.status(200);
-  res.json({user, token });
+  res.json({ user, token });
 });
