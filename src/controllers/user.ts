@@ -6,7 +6,7 @@ import User from "../models/user";
 export const SignUp = asyncHandler(async (req: Request, res: Response) => {
   const userExists = await User.findOne({ email: req.body.email });
   if (userExists) {
-    res.status(500);
+    res.status(400);
     res.json({ message: "User already exits!" });
     return;
   }
@@ -17,18 +17,19 @@ export const SignUp = asyncHandler(async (req: Request, res: Response) => {
     password: await hashPassword(req.body.password),
   });
 
-  res.status(200);
-  res.json({ message: "User created", user });
+  const token = createJWT(user);
+  res.status(201);
+  res.json({ message: "User created", user, token });
 });
 
 export const LogIn = asyncHandler(async (req: Request, res: Response) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    res.status(400);
+    res.status(404);
     res.json({ message: "User doesn't exits!" });
     return;
   }
   const token = createJWT(user);
   res.status(200);
-  res.json({ user, token });
+  res.json({user, token });
 });

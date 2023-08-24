@@ -5,7 +5,7 @@ import asyncHandler from "../middleware/asyncHandler"
 export const getAllNotes = asyncHandler(async (req: Request, res: Response) => {
   const notes = await Notes.find({ user: req.user!.id });
   if (!notes) {
-    res.status(200);
+    res.status(404);
     res.json({ message: "You have no notes" });
   }
   res.status(200);
@@ -18,14 +18,14 @@ export const createOneNote = asyncHandler(async (req: Request, res: Response) =>
     title: req.body.title,
     body: req.body.body,
   });
-  res.status(200);
+  res.status(201);
   res.json({ message: "New note saved", note });
 });
 
 export const getOneNote = asyncHandler(async (req: Request, res: Response) => {
   const note = await Notes.findById(req.params.id);
   if (!note) {
-    res.status(400);
+    res.status(404);
     res.json({ message: "Note not found" });
     return;
   }
@@ -34,14 +34,14 @@ export const getOneNote = asyncHandler(async (req: Request, res: Response) => {
     res.json({ note });
     return;
   }
-  res.status(403);
+  res.status(401);
   res.json({ message: "You don't have permission to view this note" });
 });
 
 export const updateOneNote = asyncHandler(async (req: Request, res: Response) => {
   const note = await Notes.findById(req.params.id);
   if (!note) {
-    res.status(400);
+    res.status(404);
     res.send("Note not found");
     return;
   }
@@ -51,25 +51,28 @@ export const updateOneNote = asyncHandler(async (req: Request, res: Response) =>
 
     const updatedNote = await note.save();
 
-    res.status(200);
+    res.status(202);
     res.json({ updatedNote });
     return;
   }
+  res.status(401)
   res.json({ message: "You don't have permission" });
 });
 
 export const deleteOneNote = asyncHandler(async (req: Request, res: Response) => {
   const note = await Notes.findById(req.params.id);
   if (!note) {
-    res.status(400);
+    res.status(404);
     res.send("Note not found");
     return;
   }
 
   if (note!.user.toString() === req.user!.id) {
     await Notes.deleteOne({ _id: note._id });
+    res.json(200)
     res.json({ message: "Note deleted successfully!" });
     return;
   }
+  res.status(401)
   res.json({ message: "You don't have permission" });
 });
