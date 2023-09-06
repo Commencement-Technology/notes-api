@@ -21,7 +21,7 @@ app.get("/", protectedRoute, (req, res) => {
   res.send("hello");
 });
 
-app.use("/", userRouter);
-app.use("/notes/", protectedRoute, notesRouter);
+app.use("/api/", userRouter);
+app.use("/api/notes/", protectedRoute, notesRouter);
 
 export default app;

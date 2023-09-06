@@ -4,7 +4,9 @@ import connectDB from "./config/db";
 
 dotenv.config();
 
-connectDB();
+const dbURL: string = process.env.mongoURL!
+
+connectDB(dbURL);
 
 const PORT = process.env.PORT! || 8000;
 
