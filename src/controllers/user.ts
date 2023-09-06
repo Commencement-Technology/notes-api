@@ -28,7 +28,7 @@ export const SignUp = asyncHandler(async (req: Request, res: Response) => {
 
   const token = createJWT(user);
   res.json({ message: "User created", user, token });
-  res.status(201).cookie("jwtToken", token).end()
+  res.status(201).cookie("jwtToken", token).end();
 });
 
 export const LogIn = asyncHandler(async (req: Request, res: Response) => {
@@ -39,7 +39,6 @@ export const LogIn = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
   const token = createJWT(user);
-  res.status(200).cookie("jwtToken", token).end();
-  res.json({ message: "Login successful", user, token });
-  // res.json({ user, token });
+  // res.json({ message: "Login successful", email: user.email, token });
+  res.status(200).cookie("jwtToken", token, { maxAge: 5000 }).end();
 });
