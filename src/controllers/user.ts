@@ -31,11 +31,11 @@ export const SignUp = asyncHandler(async (req: Request, res: Response) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
+    sameSite:"strict",
     maxAge: 30 * 24 * 60 * 60 * 1000,
-  });
+  })
 
-  res.status(200).json({ message: "User created", user });
+  res.status(200).json({ message: "User created", user});
 });
 
 export const LogIn = asyncHandler(async (req: Request, res: Response) => {
@@ -50,18 +50,20 @@ export const LogIn = asyncHandler(async (req: Request, res: Response) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
+    sameSite:"strict",
     maxAge: 30 * 24 * 60 * 60 * 1000,
-  });
+  })
 
-  res.status(200).json({ user });
+  res.status(200).json({user})
+
 });
+
 
 export const LogOut = asyncHandler(async (req: Request, res: Response) => {
   res.cookie("jwt", "", {
     httpOnly: true,
-    expires: new Date(0),
-  });
+    expires: new Date(0)
+  })
 
-  res.status(200).json({ message: "Logout successful" });
-});
+  res.status(200).json({message: "Logout successful"})
+})

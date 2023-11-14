@@ -30,15 +30,7 @@ export const protectedRoute = (
   res: Response,
   next: NextFunction,
 ) => {
-  // const bearer: string = req.headers.authorization!;
-  // if (!bearer) {
-  // res.status(401);
-  //   // res.json({ message: "Unauthorized!" });
-  //   return;
-  // }
-
-  // const [_, token] = bearer.split(" ");
-  const token = req.cookies.jwtToken;
+  const token = req.cookies.jwt;
 
   if (!token) {
     res.status(401);
