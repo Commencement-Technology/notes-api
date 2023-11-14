@@ -27,8 +27,15 @@ export const SignUp = asyncHandler(async (req: Request, res: Response) => {
   });
 
   const token = createJWT(user);
-  res.json({ message: "User created", user, token });
-  res.status(201).cookie("jwtToken", token).end();
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    sameSite:"strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  })
+
+  res.json({ message: "User created", user});
 });
 
 export const LogIn = asyncHandler(async (req: Request, res: Response) => {
@@ -39,6 +46,14 @@ export const LogIn = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
   const token = createJWT(user);
-  // res.json({ message: "Login successful", email: user.email, token });
-  res.status(200).cookie("jwtToken", token, { maxAge: 5000 }).end();
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    sameSite:"strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  })
+
+  res.json({user})
+
 });

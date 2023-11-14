@@ -1,11 +1,11 @@
 import { body } from "express-validator";
 
 const userValidation = [
-  body("fullName")
-    .exists({ checkFalsy: true })
-    .withMessage("Full name is required")
-    .isString()
-    .withMessage("Full name should be string"),
+  // body("fullName")
+  //   .exists({ checkFalsy: true })
+  //   .withMessage("Full name is required")
+  //   .isString()
+  //   .withMessage("Full name should be string"),
   body("email")
     .exists({ checkFalsy: true })
     .withMessage("Email is required")
