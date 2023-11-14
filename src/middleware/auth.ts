@@ -20,7 +20,7 @@ export const createJWT = (user: UserTypes) => {
     process.env.JWT_SECRET!,
     {
       expiresIn: "30d",
-    }
+    },
   );
   return token;
 };
